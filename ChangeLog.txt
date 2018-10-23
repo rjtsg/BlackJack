@@ -1,0 +1,34 @@
+-----We are now at BlackJackTheGameWithDealer3 10/10/2018 11:37
+	changed the way the dealer cards are stored
+	changed the dialogue
+	Changed the game name back to BlackJack3.x.x
+	*next update on letting the dealer draw more cards
+-----BlackJack3.1 10/10/2018 13.12
+	added that the dealer can draw more cards when he is losing to the player
+	commented some control prints
+	commented some unneccessary print lines
+	Created Data file as BlackJackData
+	*make game replayable without exiting the program -> BlackJack4
+-----BlackJack4 11/10/2018 20:39
+	Made game replayable, by making a function of the game
+	fixed bug in the game where player and dealer have the same amount of points on first draw
+	*Try to find a way that the file saves and read data to a text file
+-----WriteText 13/10/2018 20:20
+	made writing and reading files possible
+	*Try implement this into the BlackJack game -> BlackJack4.1
+-----BlackJack4.1 13/10/2018 20:32
+	The DataFile now remembers how often the game is played
+	*Try to remember wins and losses for player ->BlackJack4.1
+-----BlackJack4.1 15/10/2018 22:00
+	The game now remembers how many games you have won
+	*Make the data file such that the second line becomes Wins: x Draws: x Losses: x
+	*It is alreadt possible in the WriteText.py file
+
+*****Other updates*****
+let the terminal say jack, queen, king and ace instead of their values
+make the ace (11) be transformed to one when points come above 21
+make point system for the player
+make name available for the player
+remember player and points
+remember players wins and losses
+make a reset python file

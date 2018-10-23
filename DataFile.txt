@@ -1,0 +1,2 @@
+Times the game is played: 8
+Times the player has won: 5
