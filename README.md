@@ -1,1 +1,2 @@
 # BlackJack
+See the ChangeLog
