@@ -34,22 +34,20 @@ def GrabRead(): #the function that reads the files
     line2 = RFstr[6:12]
     f.close
 
-def GrabWrite(): #the function that changes the file
+def GrabWrite(x): #the function that changes the file
     f = open('DataFile.txt','w')
-    line1[5] = str(int(line1[5])+1)
+    if x == 1:
+        line2[1] = str(int(line2[1])+1)
+    elif x == 2:
+        line2[3] = str(int(line2[3])+1)
+    elif x == 3:
+        line2[5] = str(int(line2[5])+1)
+    elif x == 0:
+        line1[5] = str(int(line1[5])+1)
+    
     L1 = ' '.join(line1[0:6])
     L2 = ' '.join(line2[0:6])
     L1 = L1 + '\n'
-    f.write(L1)
-    f.write(L2)
-    f.close
-
-def GrabWins():
-    f = open('DataFile.txt','w')
-    L1 = ' '.join(line1[0:6])
-    L1 = L1 + '\n'
-    line2[5] = str(int(line2[5]) + 1)
-    L2 = ' '.join(line2[0:6])
     f.write(L1)
     f.write(L2)
     f.close
@@ -98,10 +96,11 @@ def BlackJack():
         else:
             if PlayerPoints == 21:
                 print('Congratulations you have gotten Blackjack')
-                GrabWins()
+                GrabWrite(1)
                 return()
             elif PlayerPoints > 21:
                 print('You are "Dead", you have lost')
+                GrabWrite(3)
                 return() 
             elif PlayerPoints < 21:
                 #print('you can take a hit or stay where you are')
@@ -152,21 +151,24 @@ def BlackJack():
                             
                         if DealerPoints > 21:
                             print('The dealer is dead, the player wins')
-                            GrabWins()
+                            GrabWrite(1)
                             return()
                         elif DealerPoints == 21:
                             print('The dealer has gotten Blackjack, the player loses')
+                            GrabWrite(3)
                             return()   
                         elif PlayerPoints > DealerPoints:
                             print('Player Wins')
-                            GrabWins()
+                            GrabWrite(1)
                             return()
                             
                         elif PlayerPoints < DealerPoints:
                             print('Dealer Wins')
+                            GrabWrite(3)
                             return()
                         else:
                             print('The game ends in a draw')
+                            GrabWrite(2)
                             return()
                     else:
                         print('Only answer with h or s') #and go back to the Top
@@ -182,7 +184,7 @@ while i == True:
             #break
             FirstGame = False
             GrabRead()
-            GrabWrite()
+            GrabWrite(0)
             BlackJack()
         elif x == 'n':
             sys.exit() #stop the script
@@ -199,7 +201,7 @@ while i == True:
             DealersTurn = True #gives dealer his turn back
             DealerCards = [] #reset the dealers cards
             GrabRead()
-            GrabWrite()
+            GrabWrite(0)
             BlackJack()
         elif x == 'n':
             sys.exit() #stop the script
