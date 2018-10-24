@@ -2,6 +2,7 @@ RFstr = ' '
 line1 = ' '
 line2 = ' '
 
+
 def GrabRead(): #the function that reads the files
     global RFstr
     global line1
