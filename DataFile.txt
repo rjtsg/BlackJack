@@ -1,2 +1,2 @@
 Times the game is played: 8
-Times the player has won: 5
+Wins: 0 Draws: 0 Losses: 0
