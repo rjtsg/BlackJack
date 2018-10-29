@@ -16,11 +16,8 @@ PlayerPoints = 0 #Define the points of the player
 Cards = C.CardDict #Load cards in so you can change the deck
 DealerPoints = 0 #Define the points of the Dealer
 DealerCards = [] #make a list of all the cards the dealer has
-<<<<<<< HEAD
 PLayerCards = [] #make a list of all the cards the player has
-=======
 PlayerCards = [] #make a list of all the cards the player has
->>>>>>> 01fb46107bc3a684438a76f5c731a2ed9f4b9b88
 DealersTurn = True #initiate dealers turn
 FirstGame = True #to know what text to show the player
 RFstr = '' #this is the global read file string
@@ -57,6 +54,68 @@ def GrabWrite(x): #the function that changes the file
     f.write(L2)
     f.close
 
+def CardPoints(x): #determines how many points a card is worth
+    if x == 'Jack' or x == 'Queen' or x == 'King': #or 'Queen' or 'King':
+        x = 10
+    elif x == 'Ace':
+        x = 11
+    else:
+        x=x
+    return(x)
+    
+def CheckAce(): #This function checks if the dealer or the player has an ace, ace can turn into 1
+    global PlayerPoints
+    global DealerPoints
+    if 'Ace' in PlayerCards:
+        print('Players Ace turned to 1')
+        PlayerPoints = PlayerPoints - 10
+        
+    elif 'Ace' in DealerCards:
+        print('Dealers Ace turned to 1')
+        DealerPOints = DealerPoints - 10
+
+def TwentyOne(X): #Checks wether the points are higher, lower or 21
+    if x == 21:
+        print('Congratulations you have gotten Blackjack')
+        GrabWrite(1)
+    elif PlayerPoints > 21:
+        print('You are "Dead", you have lost')
+        GrabWrite(3)
+    else:
+        print('You can continue')
+        #add code to chose your options here
+        
+
+def InitialCards(): #this function should deal the initial 2 cards for the player and the dealer
+    global PlayerPoints
+    global DealerPoints
+    for PlayerGetCards in range(2): #Dealing the player its initial 2 cards
+        #print(GetCards)
+        TypeName = random.choice(C.TypeNames)
+        Which = random.choice(Cards[TypeName])
+        print('You get a ' + str(Which) + ' of ' + TypeName)
+        New = Cards[TypeName] #values that needs to be modified
+        Index = New.index(Which) #get the index of the drawn card
+        del New[Index] #delete that drawn card from the row
+        Cards[TypeName] = New #replace the values without the drawn card
+        PlayerPoints = PlayerPoints + CardPoints(Which) #Keep track of the points of the player
+        PlayerCards.append(TypeName) #puts in the type of the card
+        PlayerCards.append(Which) #puts in the value of the card
+    for DealerGetCards in range(2): #Dealing the dealers initial 2 cards
+        DealerTypeName = random.choice(C.TypeNames) 
+        DealerWhich = random.choice(Cards[DealerTypeName])
+        New = Cards[DealerTypeName] #values that needs to be modified
+        Index = New.index(DealerWhich) #get the index of the drawn card
+        del New[Index] #delete that drawn card from the row
+        Cards[DealerTypeName] = New #replace the values without the drawn card
+        DealerPoints = DealerPoints + CardPoints(DealerWhich) #Keep track of the points of the dealer
+        DealerCards.append(DealerTypeName) #puts in the type of the card
+        DealerCards.append(DealerWhich) #puts in the value of the card
+            
+    print('The Dealer has a ' + str(DealerCards[1]) + ' of ' + DealerCards[0])
+    
+
+
 def BlackJack():
     #this section is needed to make the global variables
     global DealCards
@@ -70,65 +129,12 @@ def BlackJack():
     global DealersTurn
     while n == True:
         if DealCards == True:
-            for PlayerGetCards in range(2): #Dealing the player its initial 2 cards
-                #print(GetCards)
-                TypeName = random.choice(C.TypeNames)
-                Which = random.choice(Cards[TypeName])
-                if Which == 11:
-                    print('You get a Ace of ' + TypeName)
-                else:
-                    print('You get a ' + str(Which) + ' of ' + TypeName)
-
-                New = Cards[TypeName] #values that needs to be modified
-                Index = New.index(Which) #get the index of the drawn card
-                del New[Index] #delete that drawn card from the row
-                Cards[TypeName] = New #replace the values without the drawn card
-                PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
-                PlayerCards.append(TypeName) #puts in the type of the card
-                PlayerCards.append(Which) #puts in the value of the card
-                print(PlayerCards)
-            #print(PlayerPoints)
-            for DealerGetCards in range(2): #Dealing the dealers initial 2 cards
-                DealerTypeName = random.choice(C.TypeNames) 
-                DealerWhich = random.choice(Cards[DealerTypeName])
-                #print(str(DealerWhich) + ' of ' + DealerTypeName)
-                New = Cards[DealerTypeName] #values that needs to be modified
-                Index = New.index(DealerWhich) #get the index of the drawn card
-                del New[Index] #delete that drawn card from the row
-                Cards[DealerTypeName] = New #replace the values without the drawn card
-                DealerPoints = DealerPoints + DealerWhich #Keep track of the points of the dealer
-                DealerCards.append(DealerTypeName) #puts in the type of the card
-                DealerCards.append(DealerWhich) #puts in the value of the card
-            #print(DealerPoints)
-            #print(DealerCards)
-            print('The Dealer has a ' + str(DealerCards[1]) + ' of ' + DealerCards[0])
-            
+            InitialCards() #function to get the initial cards for the player and the dealer
             DealCards = False #To stop the dealing of the initial two cards
         else:
-            if PlayerPoints == 21:
-                print('Congratulations you have gotten Blackjack')
-                GrabWrite(1)
-                return()
-            elif PlayerPoints > 21:
-<<<<<<< HEAD
-                if 
-                print('You are "Dead", you have lost')
-                GrabWrite(3)
-                return() 
-=======
-                if 11 in PlayerCards: #check if the player has an ace
-                    PlayerPoints = PlayerPoints - 10
-                    print(PlayerPoints)
-                    print('You have an Ace')
-                if 11 not in PlayerCards:
-                    print('You are "Dead", you have lost')
-                    GrabWrite(3)
-                    return()
-                PlayerCards.remove(11)
-                print(PlayerCards)
+            TwentyOne(PlayerPoints)
                 
->>>>>>> 01fb46107bc3a684438a76f5c731a2ed9f4b9b88
-            elif PlayerPoints < 21:
+            if PlayerPoints < 21:
                 #print('you can take a hit or stay where you are')
                 o = True
                 while o == True:
@@ -148,7 +154,7 @@ def BlackJack():
                         del New[Index] #delete that drawn card from the row
                         Cards[TypeName] = New #replace the values without the drawn card
                         #print(GameCards)
-                        PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
+                        PlayerPoints = PlayerPoints + CardPoints(Which) #Keep track of the points of the player
                         PlayerCards.append(TypeName) #puts in the type of the card
                         PlayerCards.append(Which) #puts in the value of the card
                         print(PlayerPoints)
@@ -170,13 +176,13 @@ def BlackJack():
                                 Index = New.index(DealerWhich) #get the index of the drawn card
                                 del New[Index] #delete that drawn card from the row
                                 Cards[DealerTypeName] = New #replace the values without the drawn card
-                                DealerPoints = DealerPoints + DealerWhich #update the dealers points
+                                DealerPoints = DealerPoints + CardPoints(DealerWhich) #update the dealers points
                                 print('The dealer gets a ' + str(DealerWhich) + ' of ' + DealerTypeName) #show what card the dealer drawed
                                 #print(DealerPoints) # to check for errors
                                 if DealerPoints < 21: #go through the loop again if dealer points are lower than 21
                                     continue
                                 if DealerPoints >= 21: 
-                                    break #break the loop because the dealer has balckjack or is dead
+                                    break #break the loop because the dealer has blackjack or is dead
                             elif DealerPoints == PlayerPoints:
                                 break #break while loop
                             
