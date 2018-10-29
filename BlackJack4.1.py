@@ -16,6 +16,7 @@ PlayerPoints = 0 #Define the points of the player
 Cards = C.CardDict #Load cards in so you can change the deck
 DealerPoints = 0 #Define the points of the Dealer
 DealerCards = [] #make a list of all the cards the dealer has
+PlayerCards = [] #make a list of all the cards the player has
 DealersTurn = True #initiate dealers turn
 FirstGame = True #to know what text to show the player
 RFstr = '' #this is the global read file string
@@ -61,6 +62,7 @@ def BlackJack():
     global Cards
     global DealerPoints
     global DealerCards
+    global PlayerCards
     global DealersTurn
     while n == True:
         if DealCards == True:
@@ -68,14 +70,19 @@ def BlackJack():
                 #print(GetCards)
                 TypeName = random.choice(C.TypeNames)
                 Which = random.choice(Cards[TypeName])
-
-                print('You get a ' + str(Which) + ' of ' + TypeName)
+                if Which == 11:
+                    print('You get a Ace of ' + TypeName)
+                else:
+                    print('You get a ' + str(Which) + ' of ' + TypeName)
 
                 New = Cards[TypeName] #values that needs to be modified
                 Index = New.index(Which) #get the index of the drawn card
                 del New[Index] #delete that drawn card from the row
                 Cards[TypeName] = New #replace the values without the drawn card
                 PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
+                PlayerCards.append(TypeName) #puts in the type of the card
+                PlayerCards.append(Which) #puts in the value of the card
+                print(PlayerCards)
             #print(PlayerPoints)
             for DealerGetCards in range(2): #Dealing the dealers initial 2 cards
                 DealerTypeName = random.choice(C.TypeNames) 
@@ -99,9 +106,17 @@ def BlackJack():
                 GrabWrite(1)
                 return()
             elif PlayerPoints > 21:
-                print('You are "Dead", you have lost')
-                GrabWrite(3)
-                return() 
+                if 11 in PlayerCards: #check if the player has an ace
+                    PlayerPoints = PlayerPoints - 10
+                    print(PlayerPoints)
+                    print('You have an Ace')
+                if 11 not in PlayerCards:
+                    print('You are "Dead", you have lost')
+                    GrabWrite(3)
+                    return()
+                PlayerCards.remove(11)
+                print(PlayerCards)
+                
             elif PlayerPoints < 21:
                 #print('you can take a hit or stay where you are')
                 o = True
@@ -113,13 +128,18 @@ def BlackJack():
                         print('hit')
                         TypeName = random.choice(C.TypeNames) #picks a card class
                         Which = random.choice(Cards[TypeName]) #picks a card from the class
-                        print(str(Which) + ' of ' + TypeName) #prints what card there was picked
+                        if Which == 11:
+                            print('You get a Ace of ' + TypeName)
+                        else:
+                            print(str(Which) + ' of ' + TypeName) #prints what card there was picked
                         New = Cards[TypeName] #values that needs to be modified
                         Index = New.index(Which) #get the index of the drawn card
                         del New[Index] #delete that drawn card from the row
                         Cards[TypeName] = New #replace the values without the drawn card
                         #print(GameCards)
                         PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
+                        PlayerCards.append(TypeName) #puts in the type of the card
+                        PlayerCards.append(Which) #puts in the value of the card
                         print(PlayerPoints)
                         o = False
                         #continue
@@ -200,6 +220,7 @@ while i == True:
             Cards = C.CardDict #reset Deck
             DealersTurn = True #gives dealer his turn back
             DealerCards = [] #reset the dealers cards
+            PlayerCards = []
             GrabRead()
             GrabWrite(0)
             BlackJack()
