@@ -16,6 +16,7 @@ PlayerPoints = 0 #Define the points of the player
 Cards = C.CardDict #Load cards in so you can change the deck
 DealerPoints = 0 #Define the points of the Dealer
 DealerCards = [] #make a list of all the cards the dealer has
+PLayerCards = [] #make a list of all the cards the player has
 DealersTurn = True #initiate dealers turn
 FirstGame = True #to know what text to show the player
 RFstr = '' #this is the global read file string
@@ -99,6 +100,7 @@ def BlackJack():
                 GrabWrite(1)
                 return()
             elif PlayerPoints > 21:
+                if 
                 print('You are "Dead", you have lost')
                 GrabWrite(3)
                 return() 
