@@ -70,8 +70,10 @@ def BlackJack():
                 #print(GetCards)
                 TypeName = random.choice(C.TypeNames)
                 Which = random.choice(Cards[TypeName])
-
-                print('You get a ' + str(Which) + ' of ' + TypeName)
+                if Which == 11:
+                    print('You get a Ace of ' + TypeName)
+                else:
+                    print('You get a ' + str(Which) + ' of ' + TypeName)
 
                 New = Cards[TypeName] #values that needs to be modified
                 Index = New.index(Which) #get the index of the drawn card
@@ -126,7 +128,10 @@ def BlackJack():
                         print('hit')
                         TypeName = random.choice(C.TypeNames) #picks a card class
                         Which = random.choice(Cards[TypeName]) #picks a card from the class
-                        print(str(Which) + ' of ' + TypeName) #prints what card there was picked
+                        if Which == 11:
+                            print('You get a Ace of ' + TypeName)
+                        else:
+                            print(str(Which) + ' of ' + TypeName) #prints what card there was picked
                         New = Cards[TypeName] #values that needs to be modified
                         Index = New.index(Which) #get the index of the drawn card
                         del New[Index] #delete that drawn card from the row
