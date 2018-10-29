@@ -1,2 +1,2 @@
-Times the game is played: 29
-Wins: 3 Draws: 1 Losses: 11
+Times the game is played: 1
+Wins: 0 Draws: 0 Losses: 1
