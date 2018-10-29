@@ -78,6 +78,9 @@ def BlackJack():
                 del New[Index] #delete that drawn card from the row
                 Cards[TypeName] = New #replace the values without the drawn card
                 PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
+                PlayerCards.append(TypeName) #puts in the type of the card
+                PlayerCards.append(Which) #puts in the value of the card
+                print(PlayerCards)
             #print(PlayerPoints)
             for DealerGetCards in range(2): #Dealing the dealers initial 2 cards
                 DealerTypeName = random.choice(C.TypeNames) 
@@ -101,10 +104,17 @@ def BlackJack():
                 GrabWrite(1)
                 return()
             elif PlayerPoints > 21:
-                if 
-                print('You are "Dead", you have lost')
-                GrabWrite(3)
-                return() 
+                if 11 in PlayerCards: #check if the player has an ace
+                    PlayerPoints = PlayerPoints - 10
+                    print(PlayerPoints)
+                    print('You have an Ace')
+                if 11 not in PlayerCards:
+                    print('You are "Dead", you have lost')
+                    GrabWrite(3)
+                    return()
+                PlayerCards.remove(11)
+                print(PlayerCards)
+                
             elif PlayerPoints < 21:
                 #print('you can take a hit or stay where you are')
                 o = True
@@ -123,6 +133,8 @@ def BlackJack():
                         Cards[TypeName] = New #replace the values without the drawn card
                         #print(GameCards)
                         PlayerPoints = PlayerPoints + Which #Keep track of the points of the player
+                        PlayerCards.append(TypeName) #puts in the type of the card
+                        PlayerCards.append(Which) #puts in the value of the card
                         print(PlayerPoints)
                         o = False
                         #continue
@@ -203,6 +215,7 @@ while i == True:
             Cards = C.CardDict #reset Deck
             DealersTurn = True #gives dealer his turn back
             DealerCards = [] #reset the dealers cards
+            PlayerCards = []
             GrabRead()
             GrabWrite(0)
             BlackJack()
