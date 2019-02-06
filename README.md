@@ -9,4 +9,9 @@ For updates see the github Project board.
 
 # Poker
 
-Make a program that runs a poker game for 5 players. And register how often some kind of starting hand wins.
+Make a program that runs a poker game for up to 5 players. And register how often some kind of starting hand wins.
+several modules:
+* Card deck
+* Deal Cards
+* Check for winner
+* save data
